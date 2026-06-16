@@ -1,0 +1,229 @@
+/* Pulse builder: UIkit-based layout with scoped editor affordances. */
+
+.pulse-builder {
+  margin-top: 0;
+}
+
+.pulse-builder__cols {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 360px);
+  gap: 18px;
+  align-items: start;
+}
+
+.pulse-builder__main,
+.pulse-builder__side {
+  min-width: 0;
+}
+
+.pulse-builder__side {
+  position: sticky;
+  top: 18px;
+}
+
+.pulse-card {
+  margin-bottom: 14px;
+}
+
+.pulse-card__head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 32px;
+  margin: 0 0 14px;
+}
+
+.pulse-card__head h3 {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.25;
+}
+
+.pulse-card__drag,
+.pulse-option-row__drag {
+  color: var(--pw-muted-color, #777);
+  cursor: grab;
+  user-select: none;
+}
+
+.pulse-card__spacer {
+  flex: 1 1 auto;
+}
+
+.pulse-field {
+  margin-bottom: 14px;
+}
+
+.pulse-field > label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.pulse-note {
+  color: var(--pw-muted-color, #777);
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.pulse-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.pulse-row > .pulse-field {
+  min-width: 0;
+}
+
+.pulse-option-row {
+  display: grid;
+  grid-template-columns: auto auto minmax(160px, 1fr) auto auto;
+  gap: 8px;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid var(--pw-input-border-color, #d6dbe1);
+  border-radius: 6px;
+  margin-bottom: 8px;
+  background: var(--pw-inputs-background, #f8f8f8);
+}
+
+.pulse-option-row input[type="text"] {
+  width: 100%;
+}
+
+.pulse-option-row .pulse-correct {
+  white-space: nowrap;
+  font-size: 12px;
+}
+
+.pulse-option-thumb {
+  width: 38px;
+  height: 38px;
+  object-fit: cover;
+  border-radius: 4px;
+  border: 1px solid var(--pw-input-border-color, #d6dbe1);
+}
+
+.pulse-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-weight: 400;
+}
+
+.pulse-builder input[type="text"],
+.pulse-builder input[type="number"],
+.pulse-builder input[type="datetime-local"],
+.pulse-builder textarea,
+.pulse-builder select {
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 40px;
+  padding: 0 10px;
+  border: 1px solid var(--pw-input-border-color, rgba(0, 0, 0, .16));
+  border-radius: 0;
+  background: var(--pw-inputs-background, #f8f8f8);
+  color: var(--pw-text-color, #222);
+  font: inherit;
+  line-height: 38px;
+  box-shadow: none;
+}
+
+.pulse-builder textarea {
+  min-height: 72px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  line-height: 1.45;
+  resize: vertical;
+}
+
+.pulse-builder select {
+  appearance: auto;
+}
+
+.pulse-builder .pulse-inline {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  width: auto;
+  margin: 0 14px 10px 0;
+}
+
+.pulse-builder .pulse-inline input {
+  width: auto;
+}
+
+.pulse-builder__preview {
+  min-height: 180px;
+  padding: 12px;
+  border: 1px solid var(--pw-input-border-color, #d6dbe1);
+  border-radius: 6px;
+  background: var(--pw-inputs-background, #f8f8f8);
+}
+
+.pulse-builder__empty {
+  min-height: 130px;
+  padding: 18px;
+  border: 1px dashed var(--pw-input-border-color, #d6dbe1);
+  border-radius: 6px;
+  margin-bottom: 12px;
+  background: var(--pw-inputs-background, #f8f8f8);
+}
+
+.pulse-builder__empty i {
+  color: var(--pw-main-color, #e91e63);
+  font-size: 24px;
+}
+
+.pulse-builder__empty p {
+  margin: 10px 0 0;
+}
+
+.pulse-dragging {
+  opacity: .5;
+}
+
+.pulse-mode-panel[hidden] {
+  display: none;
+}
+
+.pulse-outcome-points {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: -2px 0 10px 34px;
+}
+
+.pulse-outcome-points label {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 12px;
+}
+
+.pulse-outcome-points input {
+  width: 76px;
+}
+
+@media (max-width: 1100px) {
+  .pulse-builder__cols {
+    grid-template-columns: 1fr;
+  }
+
+  .pulse-builder__side {
+    position: static;
+  }
+}
+
+@media (max-width: 700px) {
+  .pulse-row,
+  .pulse-option-row {
+    grid-template-columns: 1fr;
+  }
+
+  .pulse-option-row .pulse-correct {
+    white-space: normal;
+  }
+}

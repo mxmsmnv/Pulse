@@ -1,0 +1,88 @@
+{
+  "pulse_export": 1,
+  "name": "launch-operations-exam",
+  "kind": "quiz",
+  "title": "Launch operations certification",
+  "intro": "A timed exam for mission operators. It demonstrates attempts, pass score, certificate, progress, randomization, and lead capture.",
+  "status": 1,
+  "settings": {
+    "mode": "exam",
+    "dedupe": "user",
+    "pass_percent": 80,
+    "show_correct": true,
+    "time_limit": 420,
+    "max_attempts": 2,
+    "pick_random": 4,
+    "shuffle_questions": true,
+    "shuffle_options": true,
+    "certificate": true,
+    "pagination": "one_per_page",
+    "progress_bar": true,
+    "require_fields": ["name", "email"],
+    "result_messages": [
+      { "min": 0, "max": 79, "title": "Not certified yet", "text": "Review launch constraints and retry the exam." },
+      { "min": 80, "max": 100, "title": "Mission certified", "text": "You passed. Your launch operations certificate is ready." }
+    ]
+  },
+  "questions": [
+    {
+      "type": "radio",
+      "text": "A launch weather hold is most likely triggered by...",
+      "explanation": "Lightning, high winds, and unsafe cloud conditions can violate launch commit criteria.",
+      "required": 1,
+      "points": 1,
+      "options": [
+        { "label": "Lightning risk near the launch corridor", "is_correct": 1 },
+        { "label": "A fully charged battery system", "is_correct": 0 },
+        { "label": "Nominal telemetry", "is_correct": 0 },
+        { "label": "A completed countdown rehearsal", "is_correct": 0 }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "text": "Which checks belong in a final go/no-go poll?",
+      "required": 1,
+      "points": 2,
+      "options": [
+        { "label": "Range safety", "is_correct": 1 },
+        { "label": "Vehicle systems", "is_correct": 1 },
+        { "label": "Ground support equipment", "is_correct": 1 },
+        { "label": "Press conference lighting", "is_correct": 0 }
+      ]
+    },
+    {
+      "type": "boolean",
+      "text": "A countdown can continue after a red-line limit is exceeded if the audience is already watching.",
+      "required": 1,
+      "points": 1,
+      "options": [
+        { "label": "True", "is_correct": 0 },
+        { "label": "False", "is_correct": 1 }
+      ]
+    },
+    {
+      "type": "text",
+      "text": "What short phrase means the team is approved to proceed?",
+      "hint": "Two words.",
+      "required": 1,
+      "points": 1,
+      "options": [
+        { "match_value": "go" },
+        { "match_value": "go flight" },
+        { "match_value": "go for launch" }
+      ]
+    },
+    {
+      "type": "radio",
+      "text": "Why are launch windows sometimes only a few minutes long?",
+      "required": 1,
+      "points": 1,
+      "options": [
+        { "label": "The spacecraft must meet a moving orbital target", "is_correct": 1 },
+        { "label": "The rocket fuel disappears after five minutes", "is_correct": 0 },
+        { "label": "The launch pad rotates independently from Earth", "is_correct": 0 }
+      ]
+    }
+  ],
+  "outcomes": []
+}

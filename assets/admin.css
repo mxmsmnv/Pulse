@@ -1,0 +1,583 @@
+/* Pulse admin screens: scoped adjustments on top of AdminThemeUikit/UIkit. */
+
+.pulse-admin {
+  width: 100%;
+  max-width: 1240px;
+  padding-inline: clamp(12px, 1.5vw, 24px);
+}
+
+.pulse-admin *,
+.pulse-admin *::before,
+.pulse-admin *::after {
+  box-sizing: border-box;
+}
+
+.pulse-admin__hero {
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--pw-table-row-border-color, #e5e5e5);
+}
+
+.pulse-admin > .uk-grid {
+  margin-left: 0;
+}
+
+.pulse-admin > .uk-grid > * {
+  padding-left: 0;
+}
+
+.pulse-admin__eyebrow {
+  color: var(--pw-main-color, #e91e63);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .06em;
+}
+
+.pulse-admin__hero p {
+  max-width: 640px;
+}
+
+.pulse-admin__actions {
+  gap: 8px;
+}
+
+.pulse-admin__metrics {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(148px, 1fr));
+  gap: 14px;
+}
+
+.pulse-admin__stats-list {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+  margin-left: 0 !important;
+}
+
+.pulse-admin__metrics > *,
+.pulse-admin__stats-list > * {
+  width: auto !important;
+  max-width: none !important;
+  padding-left: 0 !important;
+}
+
+.pulse-admin__meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+}
+
+.pulse-admin__inline-form {
+  display: inline-flex;
+  margin: 0;
+}
+
+.pulse-admin-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 40px;
+  padding: 0 18px !important;
+  font-weight: 400;
+  line-height: 38px;
+  text-decoration: none !important;
+}
+
+.pulse-admin-btn i {
+  line-height: 1;
+}
+
+.pulse-admin__metric {
+  width: 100%;
+  min-height: 96px;
+}
+
+.pulse-admin__metric-label,
+.pulse-admin__metric-note {
+  display: block;
+}
+
+.pulse-admin__metric-value {
+  display: block;
+  margin-top: 6px;
+  font-size: 30px;
+  line-height: 1;
+  font-weight: 700;
+}
+
+.pulse-admin__panel .uk-card-title {
+  font-size: 18px;
+}
+
+.pulse-admin__grid {
+  margin-left: 0 !important;
+}
+
+.pulse-admin__grid > * {
+  padding-left: 0 !important;
+}
+
+.pulse-admin__panel {
+  overflow: hidden;
+}
+
+.pulse-admin__panel > .uk-card-header {
+  padding: 18px 22px;
+}
+
+.pulse-admin__count {
+  margin-left: 6px;
+  vertical-align: middle;
+}
+
+.pulse-admin__empty {
+  min-height: 180px;
+}
+
+.pulse-admin__empty i {
+  color: var(--pw-main-color, #e91e63);
+  font-size: 24px;
+}
+
+.pulse-admin__empty p {
+  margin: 12px 0 0;
+}
+
+.pulse-admin__details {
+  margin-top: 16px;
+  max-width: 620px;
+}
+
+.pulse-admin__details dt {
+  color: var(--pw-text-color, #222);
+}
+
+.pulse-admin__shortcode {
+  display: inline;
+  max-width: 100%;
+  padding: 3px 7px;
+  border: 1px solid var(--pw-input-border-color, #d6dbe1);
+  border-radius: 4px;
+  background: var(--pw-inputs-background, #f8f8f8);
+  font-size: 12px;
+  line-height: 1.45;
+  white-space: normal !important;
+  overflow: visible !important;
+  overflow-wrap: anywhere;
+}
+
+.pulse-admin__table table.AdminDataTable,
+.pulse-admin__table table {
+  table-layout: fixed;
+  width: 100%;
+  margin: 0;
+}
+
+.pulse-admin .pw-table-responsive {
+  padding: 0 !important;
+  overflow: visible !important;
+  background: transparent !important;
+}
+
+.pulse-admin__table table.AdminDataTable {
+  border-collapse: collapse;
+}
+
+.pulse-admin__table table.AdminDataTable th,
+.pulse-admin__table table.AdminDataTable td {
+  padding: 12px 14px !important;
+  vertical-align: middle;
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+
+.pulse-admin__table table.AdminDataTable th {
+  color: var(--pw-muted-color, #777);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+}
+
+.pulse-admin__panel--poll .pulse-admin__table th:last-child,
+.pulse-admin__panel--poll .pulse-admin__table td:last-child,
+.pulse-admin__panel--quiz .pulse-admin__table th:last-child,
+.pulse-admin__panel--quiz .pulse-admin__table td:last-child {
+  width: 180px;
+}
+
+.pulse-admin__panel--results .pulse-admin__table th:nth-child(1),
+.pulse-admin__panel--results .pulse-admin__table td:nth-child(1) {
+  width: 42%;
+}
+
+.pulse-admin__panel--results .pulse-admin__table th:nth-child(2),
+.pulse-admin__panel--results .pulse-admin__table td:nth-child(2) {
+  width: 14%;
+}
+
+.pulse-admin__panel--results .pulse-admin__table th:nth-child(3),
+.pulse-admin__panel--results .pulse-admin__table td:nth-child(3) {
+  width: 44%;
+}
+
+.pulse-admin__panel--poll .pulse-admin__table th:nth-child(1),
+.pulse-admin__panel--poll .pulse-admin__table td:nth-child(1) {
+  width: 18%;
+}
+
+.pulse-admin__panel--poll .pulse-admin__table th:nth-child(2),
+.pulse-admin__panel--poll .pulse-admin__table td:nth-child(2) {
+  width: 22%;
+}
+
+.pulse-admin__panel--poll .pulse-admin__table th:nth-child(3),
+.pulse-admin__panel--poll .pulse-admin__table td:nth-child(3) {
+  width: 12%;
+}
+
+.pulse-admin__panel--poll .pulse-admin__table th:nth-child(4),
+.pulse-admin__panel--poll .pulse-admin__table td:nth-child(4) {
+  width: 30%;
+}
+
+.pulse-admin__panel--poll .pulse-admin__table th:nth-child(5),
+.pulse-admin__panel--poll .pulse-admin__table td:nth-child(5) {
+  width: 13%;
+}
+
+.pulse-admin__panel--quiz .pulse-admin__table th:nth-child(1),
+.pulse-admin__panel--quiz .pulse-admin__table td:nth-child(1) {
+  width: 16%;
+}
+
+.pulse-admin__panel--quiz .pulse-admin__table th:nth-child(2),
+.pulse-admin__panel--quiz .pulse-admin__table td:nth-child(2) {
+  width: 18%;
+}
+
+.pulse-admin__panel--quiz .pulse-admin__table th:nth-child(3),
+.pulse-admin__panel--quiz .pulse-admin__table td:nth-child(3),
+.pulse-admin__panel--quiz .pulse-admin__table th:nth-child(4),
+.pulse-admin__panel--quiz .pulse-admin__table td:nth-child(4) {
+  width: 10%;
+}
+
+.pulse-admin__panel--quiz .pulse-admin__table th:nth-child(5),
+.pulse-admin__panel--quiz .pulse-admin__table td:nth-child(5) {
+  width: 28%;
+}
+
+.pulse-admin__panel--quiz .pulse-admin__table th:nth-child(6),
+.pulse-admin__panel--quiz .pulse-admin__table td:nth-child(6) {
+  width: 12%;
+}
+
+.pulse-admin__panel > .uk-card-body {
+  padding: clamp(16px, 2vw, 24px);
+}
+
+.pulse-admin__row-actions {
+  display: inline-flex;
+  gap: 2px;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.pulse-admin__row-actions form {
+  display: inline-flex !important;
+  margin: 0;
+}
+
+.pulse-admin__row-actions a,
+.pulse-admin__row-actions button {
+  display: inline-flex;
+  width: 28px;
+  height: 28px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--pw-muted-color, #666) !important;
+  cursor: pointer;
+  text-decoration: none !important;
+}
+
+.pulse-admin__row-actions a:hover,
+.pulse-admin__row-actions button:hover {
+  border-color: var(--pw-input-border-color, #d6dbe1);
+  background: var(--pw-inputs-background, #f8f8f8);
+  color: var(--pw-text-color, #222) !important;
+}
+
+.pulse-admin__percent {
+  display: grid;
+  grid-template-columns: minmax(90px, 1fr) 44px;
+  gap: 10px;
+  align-items: center;
+}
+
+.pulse-admin__percent-bar {
+  height: 8px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--pw-inputs-background, #f8f8f8);
+}
+
+.pulse-admin__percent-bar span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--pw-main-color, #e91e63);
+}
+
+.pulse-admin__percent strong {
+  font-weight: 600;
+  text-align: right;
+}
+
+.pulse-admin__action-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pulse-admin__form textarea,
+.pulse-admin__form input[type="text"],
+.pulse-admin__form input[type="number"] {
+  width: 100%;
+}
+
+.pulse-admin__form textarea {
+  min-height: 360px;
+  resize: vertical;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 13px;
+}
+
+.pulse-admin__retention {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  align-items: end;
+}
+
+.pulse-admin__retention-field {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0;
+}
+
+.pulse-admin__field-label {
+  color: var(--pw-text-color, #222);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.pulse-admin__control,
+.pulse-admin__retention input[type="number"] {
+  width: 172px;
+  min-height: 40px;
+  box-sizing: border-box;
+  padding: 0 10px;
+  border: 1px solid var(--pw-input-border-color, #d6dbe1);
+  border-radius: 0;
+  background: var(--pw-inputs-background, #f8f8f8);
+  box-shadow: none;
+  color: var(--pw-text-color, #222);
+  font: inherit;
+  line-height: 38px;
+}
+
+.pulse-admin__control:focus,
+.pulse-admin__retention input[type="number"]:focus {
+  border-color: var(--pw-main-color, #e91e63);
+  background: #fff;
+  outline: none;
+}
+
+.pulse-admin__radio-row {
+  display: flex;
+  min-height: 40px;
+  align-items: center;
+  gap: 14px;
+}
+
+.pulse-admin__retention .pulse-admin__radio {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 7px;
+  margin: 0;
+  color: var(--pw-text-color, #222);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.pulse-admin__radio input[type="radio"] {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  accent-color: var(--pw-main-color, #e91e63);
+}
+
+.pulse-admin--builder {
+  max-width: none;
+}
+
+.pulse-admin--builder {
+  padding-inline: 0;
+}
+
+#pulse-edit-form > .Inputfields {
+  margin-left: 0 !important;
+}
+
+#pulse-edit-form > .Inputfields > .InputfieldMarkup,
+#pulse-edit-form > .Inputfields > .InputfieldMarkup > .InputfieldContent {
+  border: 0 !important;
+  background: transparent !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+}
+
+#pulse-edit-form .InputfieldMarkup {
+  outline: 0 !important;
+}
+
+#pulse-edit-form > .Inputfields > .InputfieldMarkup > .InputfieldContent {
+  padding: 0 !important;
+}
+
+.pulse-admin--builder #pulse-edit-form > .Inputfields {
+  margin-top: 0;
+}
+
+.pulse-admin__hero--builder {
+  margin-top: 4px;
+}
+
+@media (max-width: 640px) {
+  .pulse-admin__actions {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 1100px) {
+  .pulse-admin__table table.AdminDataTable,
+  .pulse-admin__table table.AdminDataTable thead,
+  .pulse-admin__table table.AdminDataTable tbody,
+  .pulse-admin__table table.AdminDataTable tr,
+  .pulse-admin__table table.AdminDataTable th,
+  .pulse-admin__table table.AdminDataTable td {
+    display: block;
+    width: 100% !important;
+  }
+
+  .pulse-admin__table table.AdminDataTable {
+    table-layout: auto;
+    border: 0;
+  }
+
+  .pulse-admin__table table.AdminDataTable thead {
+    position: absolute;
+    width: 1px !important;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  .pulse-admin__table table.AdminDataTable tbody tr {
+    padding: 14px;
+    border: 1px solid var(--pw-table-row-border-color, #e5e5e5);
+    border-radius: 6px;
+    margin-bottom: 12px;
+    background: var(--pw-blocks-background, #fff);
+  }
+
+  .pulse-admin__table table.AdminDataTable tbody td {
+    display: grid;
+    grid-template-columns: 120px minmax(0, 1fr);
+    gap: 12px;
+    align-items: start;
+    padding: 7px 0 !important;
+    border: 0;
+  }
+
+  .pulse-admin__table table.AdminDataTable tbody td::before {
+    color: var(--pw-muted-color, #777);
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .pulse-admin__panel--poll .pulse-admin__table td:nth-child(1)::before,
+  .pulse-admin__panel--quiz .pulse-admin__table td:nth-child(1)::before { content: "Name"; }
+  .pulse-admin__panel--poll .pulse-admin__table td:nth-child(2)::before,
+  .pulse-admin__panel--quiz .pulse-admin__table td:nth-child(2)::before { content: "Title"; }
+  .pulse-admin__panel--quiz .pulse-admin__table td:nth-child(3)::before { content: "Mode"; }
+  .pulse-admin__panel--poll .pulse-admin__table td:nth-child(3)::before,
+  .pulse-admin__panel--quiz .pulse-admin__table td:nth-child(4)::before { content: "Status"; }
+  .pulse-admin__panel--poll .pulse-admin__table td:nth-child(4)::before,
+  .pulse-admin__panel--quiz .pulse-admin__table td:nth-child(5)::before { content: "Shortcode"; }
+  .pulse-admin__panel--poll .pulse-admin__table td:nth-child(5)::before,
+  .pulse-admin__panel--quiz .pulse-admin__table td:nth-child(6)::before { content: "Updated"; }
+  .pulse-admin__panel--poll .pulse-admin__table td:nth-child(6)::before,
+  .pulse-admin__panel--quiz .pulse-admin__table td:nth-child(7)::before { content: "Actions"; }
+  .pulse-admin__panel--results .pulse-admin__table td:nth-child(1)::before { content: "Option"; }
+  .pulse-admin__panel--results .pulse-admin__table td:nth-child(2)::before { content: "Count"; }
+  .pulse-admin__panel--results .pulse-admin__table td:nth-child(3)::before { content: "%"; }
+  .pulse-admin__panel--outcomes .pulse-admin__table td:nth-child(1)::before { content: "Outcome"; }
+  .pulse-admin__panel--outcomes .pulse-admin__table td:nth-child(2)::before { content: "Count"; }
+  .pulse-admin__panel--questions .pulse-admin__table td:nth-child(1)::before { content: "Question"; }
+  .pulse-admin__panel--questions .pulse-admin__table td:nth-child(2)::before { content: "Answered"; }
+  .pulse-admin__panel--questions .pulse-admin__table td:nth-child(3)::before { content: "% correct"; }
+
+  .pulse-admin__row-actions {
+    flex-wrap: wrap;
+    white-space: normal;
+  }
+}
+
+@media (max-width: 480px) {
+  .pulse-admin {
+    padding-inline: 0;
+  }
+
+  .pulse-admin__hero {
+    padding-bottom: 14px;
+  }
+
+  .pulse-admin__table table.AdminDataTable tbody td {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+
+  .pulse-admin__action-row,
+  .pulse-admin__actions {
+    align-items: stretch;
+  }
+
+  .pulse-admin__action-row .pulse-admin-btn,
+  .pulse-admin__actions .pulse-admin-btn,
+  .pulse-admin__retention .pulse-admin-btn,
+  .pulse-admin__inline-form,
+  .pulse-admin__inline-form .pulse-admin-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .pulse-admin__retention-field,
+  .pulse-admin__retention input[type="number"] {
+    width: 100%;
+  }
+
+  .pulse-admin__retention-mode {
+    align-items: flex-start;
+  }
+}

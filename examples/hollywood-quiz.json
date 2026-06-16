@@ -1,0 +1,117 @@
+{
+  "pulse_export": 1,
+  "name": "hollywood-movie-quiz",
+  "kind": "quiz",
+  "title": "How well do you know Hollywood movies?",
+  "intro": "Look at the visual clue, read the short description, and choose the movie. Each question is shown as its own slide.",
+  "status": 1,
+  "settings": {
+    "mode": "graded",
+    "dedupe": "cookie_ip",
+    "pass_percent": 60,
+    "show_correct": true,
+    "shuffle_options": true,
+    "progress_bar": true,
+    "pagination": "one_per_page",
+    "share": true,
+    "result_messages": [
+      {
+        "min": 0,
+        "max": 39,
+        "title": "Opening-weekend rookie",
+        "text": "You caught a few famous clues, but the classics still have plot twists waiting for you."
+      },
+      {
+        "min": 40,
+        "max": 69,
+        "title": "Popcorn regular",
+        "text": "You know the big moments and can hold your own in a movie-night debate."
+      },
+      {
+        "min": 70,
+        "max": 89,
+        "title": "Premiere guest",
+        "text": "Strong cinema memory. Posters, quotes, and plot clues are clearly your territory."
+      },
+      {
+        "min": 90,
+        "max": 100,
+        "title": "Hollywood archivist",
+        "text": "You read visual clues like end credits. This is full red-carpet energy."
+      }
+    ]
+  },
+  "questions": [
+    {
+      "type": "radio",
+      "text": "A former pilot leaves Earth through a wormhole to search for humanity's next home.",
+      "image": "demo-movie-space-odyssey.png",
+      "explanation": "Interstellar follows Cooper and a space mission through a wormhole near Saturn.",
+      "required": 1,
+      "points": 1,
+      "options": [
+        { "label": "Interstellar", "is_correct": 1 },
+        { "label": "Gravity", "is_correct": 0 },
+        { "label": "The Martian", "is_correct": 0 },
+        { "label": "Apollo 13", "is_correct": 0 }
+      ]
+    },
+    {
+      "type": "radio",
+      "text": "A quiet beach town faces panic after a great white shark changes the summer forever.",
+      "image": "demo-movie-shark-fin.png",
+      "explanation": "Jaws made a shark fin, a beach, and a few notes of music instantly recognizable.",
+      "required": 1,
+      "points": 1,
+      "options": [
+        { "label": "Jaws", "is_correct": 1 },
+        { "label": "The Meg", "is_correct": 0 },
+        { "label": "Deep Blue Sea", "is_correct": 0 },
+        { "label": "Open Water", "is_correct": 0 }
+      ]
+    },
+    {
+      "type": "radio",
+      "text": "A hacker is offered a choice that reveals the world is not what it seems.",
+      "image": "demo-movie-red-blue-choice.png",
+      "explanation": "The red pill and blue pill choice is one of the defining images from The Matrix.",
+      "required": 1,
+      "points": 1,
+      "options": [
+        { "label": "The Matrix", "is_correct": 1 },
+        { "label": "Inception", "is_correct": 0 },
+        { "label": "Blade Runner", "is_correct": 0 },
+        { "label": "Tron", "is_correct": 0 }
+      ]
+    },
+    {
+      "type": "radio",
+      "text": "Scientists bring prehistoric creatures back to life in a theme park where control quickly collapses.",
+      "image": "demo-movie-dinosaur-park.png",
+      "explanation": "Jurassic Park turns a dinosaur theme park into a survival story.",
+      "required": 1,
+      "points": 1,
+      "options": [
+        { "label": "Jurassic Park", "is_correct": 1 },
+        { "label": "King Kong", "is_correct": 0 },
+        { "label": "Godzilla", "is_correct": 0 },
+        { "label": "The Lost World", "is_correct": 0 }
+      ]
+    },
+    {
+      "type": "radio",
+      "text": "A gentle storyteller crosses decades of American history with a suitcase, a bench, and a floating feather.",
+      "image": "demo-movie-feather-road.png",
+      "explanation": "Forrest Gump opens with a feather and returns to the bench as a storytelling frame.",
+      "required": 1,
+      "points": 1,
+      "options": [
+        { "label": "Forrest Gump", "is_correct": 1 },
+        { "label": "Rain Man", "is_correct": 0 },
+        { "label": "The Truman Show", "is_correct": 0 },
+        { "label": "Big Fish", "is_correct": 0 }
+      ]
+    }
+  ],
+  "outcomes": []
+}

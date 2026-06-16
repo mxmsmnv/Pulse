@@ -1,0 +1,56 @@
+{
+  "pulse_export": 1,
+  "name": "spacecraft-personality",
+  "kind": "quiz",
+  "title": "What kind of spacecraft are you?",
+  "intro": "A playful personality quiz that maps choices to outcomes.",
+  "status": 1,
+  "settings": {
+    "mode": "personality",
+    "result_mode": "highest",
+    "dedupe": "soft",
+    "progress_bar": true,
+    "share": true
+  },
+  "questions": [
+    {
+      "type": "radio",
+      "text": "Your perfect mission sounds like...",
+      "required": 1,
+      "options": [
+        { "label": "Crossing deep space alone, sending back discoveries", "outcome_points": { "idx:0": 3 } },
+        { "label": "Delivering supplies exactly when the crew needs them", "outcome_points": { "idx:1": 3 } },
+        { "label": "Keeping a whole team alive in orbit", "outcome_points": { "idx:2": 3 } },
+        { "label": "Fast maneuvers, high pressure, clear targets", "outcome_points": { "idx:3": 3 } }
+      ]
+    },
+    {
+      "type": "radio",
+      "text": "Pick a dashboard priority",
+      "required": 1,
+      "options": [
+        { "label": "Long-range sensors", "outcome_points": { "idx:0": 2 } },
+        { "label": "Fuel and cargo mass", "outcome_points": { "idx:1": 2 } },
+        { "label": "Life support stability", "outcome_points": { "idx:2": 2 } },
+        { "label": "Velocity and targeting", "outcome_points": { "idx:3": 2 } }
+      ]
+    },
+    {
+      "type": "radio",
+      "text": "What do people rely on you for?",
+      "required": 1,
+      "options": [
+        { "label": "Curiosity and patience", "outcome_points": { "idx:0": 2 } },
+        { "label": "Dependability under load", "outcome_points": { "idx:1": 2 } },
+        { "label": "Calm coordination", "outcome_points": { "idx:2": 2 } },
+        { "label": "Decisive action", "outcome_points": { "idx:3": 2 } }
+      ]
+    }
+  ],
+  "outcomes": [
+    { "label": "Deep-space probe", "description": "You are quiet, focused, and built for impossible distances." },
+    { "label": "Cargo hauler", "description": "You make complex plans feel boringly reliable, which is a compliment." },
+    { "label": "Orbital station", "description": "You are the stable center where different people and systems connect." },
+    { "label": "Interceptor craft", "description": "You move fast, decide cleanly, and thrive when the stakes are clear." }
+  ]
+}

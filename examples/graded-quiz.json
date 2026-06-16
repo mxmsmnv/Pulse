@@ -1,0 +1,72 @@
+{
+  "pulse_export": 1,
+  "name": "car-logo-quiz",
+  "kind": "quiz",
+  "title": "Car logo recognition quiz",
+  "intro": "A compact brand quiz for car fans. It demonstrates single choice, multiple choice, true/false, and text matching.",
+  "status": 1,
+  "settings": {
+    "mode": "graded",
+    "dedupe": "cookie_ip",
+    "pass_percent": 70,
+    "show_correct": true,
+    "shuffle_options": true,
+    "progress_bar": true,
+    "share": true,
+    "result_messages": [
+      { "min": 0, "max": 49, "title": "Garage apprentice", "text": "You know a few badges, but the showroom still has surprises." },
+      { "min": 50, "max": 69, "title": "Logo spotter", "text": "Solid eye. A few luxury and performance badges need another look." },
+      { "min": 70, "max": 100, "title": "Brand expert", "text": "You can read a parking lot like a catalog." }
+    ]
+  },
+  "questions": [
+    {
+      "type": "radio",
+      "text": "Which brand is represented by four interlocking rings?",
+      "explanation": "Audi uses four rings to represent the four companies of Auto Union.",
+      "required": 1,
+      "points": 1,
+      "options": [
+        { "label": "Audi", "image": "demo-logo-four-rings.png", "is_correct": 1 },
+        { "label": "BMW", "image": "demo-logo-blue-roundel.png", "is_correct": 0 },
+        { "label": "Mercedes-Benz", "image": "demo-logo-three-star.png", "is_correct": 0 },
+        { "label": "Volvo", "image": "demo-logo-volvo.png", "is_correct": 0 }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "text": "Which logos are strongly associated with performance or supercar brands?",
+      "hint": "There can be more than one correct answer.",
+      "required": 1,
+      "points": 2,
+      "options": [
+        { "label": "Ferrari prancing horse", "image": "demo-logo-prancing-horse.png", "is_correct": 1 },
+        { "label": "Lamborghini bull", "image": "demo-logo-bull.png", "is_correct": 1 },
+        { "label": "Porsche crest", "image": "demo-logo-porsche-crest.png", "is_correct": 1 },
+        { "label": "Skoda winged arrow", "image": "demo-logo-winged-arrow.png", "is_correct": 0 }
+      ]
+    },
+    {
+      "type": "boolean",
+      "text": "The Tesla logo is a stylized section of an electric motor.",
+      "required": 1,
+      "points": 1,
+      "options": [
+        { "label": "True", "is_correct": 1 },
+        { "label": "False", "is_correct": 0 }
+      ]
+    },
+    {
+      "type": "text",
+      "text": "Which German brand uses the three-pointed star?",
+      "hint": "Write the brand name.",
+      "required": 1,
+      "points": 1,
+      "options": [
+        { "match_value": "Mercedes-Benz" },
+        { "match_value": "Mercedes" }
+      ]
+    }
+  ],
+  "outcomes": []
+}

@@ -1,0 +1,36 @@
+{
+  "pulse_export": 1,
+  "name": "planet-mission-vote",
+  "kind": "poll",
+  "title": "Which planets should be next on the mission board?",
+  "intro": "Pick up to three destinations for the next public space program vote.",
+  "status": 1,
+  "settings": {
+    "dedupe": "cookie_ip",
+    "multiple": true,
+    "min_select": 1,
+    "max_select": 3,
+    "allow_other": true,
+    "show_counts": true,
+    "result_visibility": "after_vote",
+    "share": true
+  },
+  "questions": [
+    {
+      "type": "checkbox",
+      "text": "Choose your mission destinations",
+      "hint": "Select one to three options.",
+      "required": 1,
+      "points": 1,
+      "options": [
+        { "label": "Mars - first crewed base" },
+        { "label": "Europa - ocean under the ice" },
+        { "label": "Titan - lakes, atmosphere, and drones" },
+        { "label": "Venus - cloud-city research" },
+        { "label": "Moon - permanent logistics hub" },
+        { "label": "Ceres - asteroid belt outpost" }
+      ]
+    }
+  ],
+  "outcomes": []
+}
