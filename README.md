@@ -3,6 +3,8 @@
 Engagement module for ProcessWire: **polls** and **quizzes** embedded into any
 text field via shortcodes and rendered as interactive, cache-safe widgets.
 
+![Pulse](assets/Pulse.png)
+
 - **Polls** — voting with live results and duplicate protection.
 - **Quizzes** — three modes:
   - `graded` — points, pass/fail threshold, answer review;
