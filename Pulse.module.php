@@ -11,7 +11,7 @@ class Pulse extends WireData implements Module {
     public static function getModuleInfo() {
         return [
             'title' => 'Pulse',
-            'version' => 104,
+            'version' => 105,
             'summary' => 'Polls and quizzes embedded via shortcodes, with live results.',
             'author' => 'Maxim Semenov',
             'href' => 'https://smnv.org',

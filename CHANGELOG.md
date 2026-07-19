@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.5
+
+- Keep timed exams idle until required participant fields are confirmed with an explicit start action.
+- Render gated exam questions and the submit button hidden in the initial HTML to prevent stale or delayed scripts from exposing the first question.
+- Version public Pulse assets from their modification time so browsers fetch updated JavaScript and CSS after deployment.
+
 ## 1.0.3
 
 - Render no-JavaScript quiz responses with the correct `pulse--quiz` wrapper.

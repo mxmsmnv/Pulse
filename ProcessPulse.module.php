@@ -23,7 +23,7 @@ class ProcessPulse extends Process implements ConfigurableModule {
     public static function getModuleInfo() {
         return [
             'title' => 'Pulse Admin',
-            'version' => 104,
+            'version' => 105,
             'summary' => 'Polls and quizzes embedded via shortcodes, with live results.',
             'author' => 'Maxim Semenov',
             'href'     => 'https://smnv.org',
