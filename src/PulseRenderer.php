@@ -120,6 +120,10 @@ class PulseRenderer extends Wire {
         $shuffleOptions = $item->isQuiz() && !empty($item->settings['shuffle_options']);
         if($item->isQuiz() && !empty($item->settings['shuffle_questions'])) shuffle($questions);
 
+        $fields = (isset($item->settings['require_fields']) && is_array($item->settings['require_fields']))
+            ? $item->settings['require_fields'] : [];
+        $initialExamGate = $isExam && !$preview && !empty($fields);
+
         // NOTE — pick_random and full-page caching are incompatible:
         // The question bank is shuffled and sliced here at PHP render time, so every
         // cached copy of the page will contain the same fixed subset of questions.
@@ -137,12 +141,10 @@ class PulseRenderer extends Wire {
 
         $idx = 0;
         foreach($questions as $q) {
-            $out .= $this->renderQuestion($q, $multiple, $idx++, $shuffleOptions);
+            $out .= $this->renderQuestion($q, $multiple, $idx++, $shuffleOptions, $initialExamGate);
         }
 
         // lead capture
-        $fields = (isset($item->settings['require_fields']) && is_array($item->settings['require_fields']))
-            ? $item->settings['require_fields'] : [];
         if($fields) {
             $out .= "<div class=\"pulse__lead\">";
             if(in_array('name', $fields, true)) {
@@ -176,7 +178,8 @@ class PulseRenderer extends Wire {
 
         $label = $item->isPoll() ? $this->_('Vote') : $this->_('Submit');
         $disabled = $preview ? ' disabled' : '';
-        $out .= "<button class=\"pulse__submit\" type=\"submit\"{$disabled}>" . $this->e($label) . "</button>";
+        $hidden = $initialExamGate ? ' hidden' : '';
+        $out .= "<button class=\"pulse__submit\" type=\"submit\"{$hidden}{$disabled}>" . $this->e($label) . "</button>";
 
         $out .= "</form>";
         $out .= "<div class=\"pulse__results\" aria-live=\"polite\" hidden></div>";
@@ -188,15 +191,19 @@ class PulseRenderer extends Wire {
     /**
      * @param PulseQuestion $q
      * @param bool $multiple poll multi-select
+     * @param int $index
+     * @param bool $shuffleOptions
+     * @param bool $hidden hide gated exam content until the participant starts
      * @return string
      */
-    protected function renderQuestion(PulseQuestion $q, $multiple = false, $index = 0, $shuffleOptions = false) {
+    protected function renderQuestion(PulseQuestion $q, $multiple = false, $index = 0, $shuffleOptions = false, $hidden = false) {
         $qid = (int) $q->id;
         $type = $q->type;
         $req = $q->required ? '1' : '0';
 
         $out = "<fieldset class=\"pulse__question\" data-pulse-qtype=\"" . $this->e($type) . "\""
-            . " data-pulse-qindex=\"" . (int) $index . "\" data-pulse-required=\"{$req}\">";
+            . " data-pulse-qindex=\"" . (int) $index . "\" data-pulse-required=\"{$req}\""
+            . ($hidden ? ' hidden' : '') . ">";
         $legend = $this->e($q->text);
         if($q->required) $legend .= " <span class=\"pulse__required\" aria-hidden=\"true\">*</span>";
         $out .= "<legend class=\"pulse__qtext\">{$legend}</legend>";

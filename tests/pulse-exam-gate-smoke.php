@@ -37,6 +37,12 @@ $original = $session->getFor('Pulse', $key);
 $process = wire(new ProcessPulse());
 
 try {
+    $markup = wire(new PulseRenderer($item))->render();
+    if(!preg_match('/<fieldset class="pulse__question"[^>]*\shidden(?:\s|>)/', $markup)
+        || !preg_match('/<button class="pulse__submit"[^>]*\shidden(?:\s|>)/', $markup)) {
+        throw new \RuntimeException('Timed exam content is visible in the server-rendered lead gate.');
+    }
+
     $session->setFor('Pulse', $key, null);
     $input->get->set('name', $name);
     $input->get->set('start', null);
