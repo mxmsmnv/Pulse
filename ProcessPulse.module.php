@@ -23,7 +23,7 @@ class ProcessPulse extends Process implements ConfigurableModule {
     public static function getModuleInfo() {
         return [
             'title' => 'Pulse Admin',
-            'version' => '1.0.3',
+            'version' => '1.0.4',
             'summary' => 'Polls and quizzes embedded via shortcodes, with live results.',
             'author' => 'Maxim Semenov',
             'href'     => 'https://smnv.org',
@@ -169,14 +169,49 @@ class ProcessPulse extends Process implements ConfigurableModule {
             $max = isset($item->settings['max_attempts']) ? max(0, (int) $item->settings['max_attempts']) : 0;
             $used = $this->subs()->countAttempts($item, $ctx);
             $data['attempts_left'] = $max > 0 ? max(0, $max - $used) : null;
+            $data['exam_started'] = false;
 
             $timeLimit = isset($item->settings['time_limit']) ? max(0, (int) $item->settings['time_limit']) : 0;
             $data['time_limit'] = $timeLimit;
-            if($timeLimit > 0 && (!$max || $used < $max)) {
+            $startRequested = (string) $this->input->get('start') === '1';
+            if(!$max || $used < $max) {
                 $key = 'examstart_' . $item->name;
                 $start = (int) $this->session->getFor('Pulse', $key);
-                if(!$start) { $start = time(); $this->session->setFor('Pulse', $key, $start); }
-                $data['time_remaining'] = max(0, $timeLimit - (time() - $start));
+                $elapsed = $start ? max(0, time() - $start) : 0;
+
+                // An abandoned timed attempt is finalized when the visitor next
+                // hydrates the widget. This prevents a zero-second, still-editable
+                // form and releases the session for a permitted next attempt.
+                if($timeLimit > 0 && $start && $elapsed >= $timeLimit) {
+                    $timeoutCtx = $ctx;
+                    $timeoutCtx['time_spent'] = $elapsed;
+                    $timeout = $this->subs()->recordExamTimeout($item, $timeoutCtx);
+                    $this->session->setFor('Pulse', $key, null);
+                    $start = 0;
+                    $data['expired_attempt'] = ($timeout['code'] ?? '') === 'timeout';
+                    if($data['expired_attempt']) {
+                        $used++;
+                        $data['attempts_left'] = $max > 0 ? max(0, $max - $used) : null;
+                    }
+                }
+
+                if($max > 0 && $used >= $max) {
+                    $data['view'] = 'exhausted';
+                } elseif($startRequested) {
+                    if(!$start) {
+                        $start = time();
+                        if($timeLimit > 0) $this->session->setFor('Pulse', $key, $start);
+                    }
+                    $data['exam_started'] = true;
+                    $data['time_remaining'] = $timeLimit > 0
+                        ? max(0, $timeLimit - (time() - $start))
+                        : 0;
+                } elseif($start) {
+                    $data['exam_started'] = true;
+                    $data['time_remaining'] = max(0, $timeLimit - $elapsed);
+                } else {
+                    $data['time_remaining'] = null;
+                }
             }
             if($max > 0 && $used >= $max) $data['view'] = 'exhausted';
         }

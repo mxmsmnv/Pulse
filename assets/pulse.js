@@ -33,7 +33,13 @@
     };
   }
 
-  function setState(root, state) { root.setAttribute('data-pulse-state', state); }
+  function setState(root, state) {
+    var changed = root.getAttribute('data-pulse-state') !== state;
+    root.setAttribute('data-pulse-state', state);
+    if (changed && typeof window.CustomEvent === 'function') {
+      root.dispatchEvent(new CustomEvent('pulse:statechange', { bubbles: true, detail: { state: state } }));
+    }
+  }
 
   function intRange(value, min, max) {
     var n = parseInt(value, 10);
@@ -131,19 +137,108 @@
     input.value = csrf.value;
   }
 
+  function setExamContentHidden(root, form, hidden) {
+    var questions = Array.prototype.slice.call(form.querySelectorAll('.pulse__question'));
+    questions.forEach(function (question) {
+      question.hidden = hidden || !question.classList.contains('is-active');
+    });
+    var nav = form.querySelector('.pulse__nav');
+    var submit = form.querySelector('.pulse__submit');
+    var progress = root.querySelector('.pulse__progress');
+    if (nav) nav.hidden = hidden;
+    if (progress) progress.hidden = hidden;
+    if (submit) {
+      var active = questions.findIndex(function (question) { return question.classList.contains('is-active'); });
+      submit.hidden = hidden || active !== questions.length - 1;
+    }
+  }
+
+  function prepareExamLeadGate(root, form, startCallback) {
+    var lead = form.querySelector('.pulse__lead');
+    if (!lead || !lead.querySelector('input[required]')) return null;
+
+    var gate = document.createElement('div');
+    gate.className = 'pulse__exam-gate';
+    var heading = document.createElement('h3');
+    heading.className = 'pulse__exam-gate-title';
+    heading.textContent = 'Before you begin';
+    var intro = document.createElement('p');
+    intro.className = 'pulse__exam-gate-intro';
+    intro.textContent = 'Enter your name and email. The exam timer starts only after you select Start assessment.';
+    var start = document.createElement('button');
+    start.type = 'button';
+    start.className = 'pulse__start';
+    start.textContent = 'Start assessment';
+    form.insertBefore(gate, form.firstChild);
+    gate.appendChild(heading);
+    gate.appendChild(intro);
+    gate.appendChild(lead);
+    gate.appendChild(start);
+    setExamContentHidden(root, form, true);
+    setState(root, 'lead');
+
+    start.addEventListener('click', function () {
+      clearError(root);
+      var fields = Array.prototype.slice.call(lead.querySelectorAll('input[required]'));
+      for (var i = 0; i < fields.length; i++) {
+        if (!fields[i].checkValidity()) {
+          if (fields[i].reportValidity) fields[i].reportValidity();
+          return;
+        }
+      }
+      start.disabled = true;
+      startCallback(gate, start);
+    });
+    return gate;
+  }
+
+  function activateExam(root, form, gate, secs) {
+    if (gate) gate.hidden = true;
+    setExamContentHidden(root, form, false);
+    setState(root, 'form');
+    if (secs > 0) startExamTimer(root, form, secs);
+  }
+
   function hydrate(root) {
     var form = root.querySelector('.pulse__form');
     var name = root.getAttribute('data-pulse-name');
     var kind = root.getAttribute('data-pulse-kind');
     if (!form || !name) { setState(root, 'form'); return; }
     var ep = endpoints(form);
+    var isExam = kind === 'quiz' && root.getAttribute('data-pulse-mode') === 'exam';
 
-    ajax(ep.state + '?name=' + encodeURIComponent(name))
+    if (kind === 'quiz') setupQuiz(root, form);
+    setupOtherInputs(form);
+    if (kind === 'quiz' && root.getAttribute('data-pulse-video') === '1') setupVideo(root, form);
+
+    var gate = null;
+    if (isExam) {
+      gate = prepareExamLeadGate(root, form, function (gateElement, startButton) {
+        ajax(ep.state + '?name=' + encodeURIComponent(name) + '&start=1')
+          .then(function (r) { return r.json(); })
+          .then(function (d) {
+            startButton.disabled = false;
+            if (!d || !d.ok) { showError(root, d && d.code); return; }
+            setCsrf(form, d.csrf);
+            if (d.view === 'exhausted') {
+              disableForm(form);
+              showError(root, 'attempts');
+              return;
+            }
+            if (!d.exam_started) { showError(root, 'invalid'); return; }
+            activateExam(root, form, gateElement, Math.max(0, parseInt(d.time_remaining, 10) || 0));
+          })
+          .catch(function () { startButton.disabled = false; showError(root, 'error'); });
+      });
+    }
+
+    var stateUrl = ep.state + '?name=' + encodeURIComponent(name);
+    if (isExam && !gate) stateUrl += '&start=1';
+    ajax(stateUrl)
       .then(function (r) { return r.json(); })
       .then(function (d) {
         if (!d || !d.ok) { setState(root, 'form'); return; }
         setCsrf(form, d.csrf);
-        var isExam = root.getAttribute('data-pulse-mode') === 'exam';
         if (kind === 'poll' && d.view === 'results' && d.results) {
           renderResults(root, d.results);
         } else if (d.view === 'closed') {
@@ -156,6 +251,9 @@
           setState(root, 'form');
           disableForm(form);
           showError(root, 'already');
+        } else if (isExam && !d.exam_started) {
+          if (d.expired_attempt) showError(root, 'timeout');
+          if (gate) setState(root, 'lead');
         } else {
           var secs = isExam ? ((d.time_remaining != null) ? d.time_remaining
             : parseInt(root.getAttribute('data-pulse-timelimit'), 10) || 0) : 0;
@@ -163,16 +261,12 @@
             setState(root, 'locked');
             root.__pulsePendingTimer = secs; // exam timer starts once the video unlocks
           } else {
-            setState(root, 'form');
-            if (isExam && secs > 0) startExamTimer(root, form, secs);
+            if (isExam) activateExam(root, form, gate, secs);
+            else setState(root, 'form');
           }
         }
       })
-      .catch(function () { setState(root, 'form'); });
-
-    if (kind === 'quiz') setupQuiz(root, form);
-    setupOtherInputs(form);
-    if (kind === 'quiz' && root.getAttribute('data-pulse-video') === '1') setupVideo(root, form);
+      .catch(function () { if (!gate) setState(root, 'form'); else showError(root, 'error'); });
 
     form.addEventListener('submit', function (e) {
       e.preventDefault();

@@ -14,7 +14,7 @@ class TextformatterPulse extends Textformatter implements ConfigurableModule {
     public static function getModuleInfo() {
         return [
             'title' => 'Pulse Text Formatter',
-            'version' => '1.0.3',
+            'version' => '1.0.4',
             'summary' => 'Parses [[pulse:poll name="name"]] / [[pulse:quiz name="name"]] tokens into rendered widgets.',
             'author' => 'Maxim Semenov',
             'href'     => 'https://smnv.org',
@@ -115,8 +115,11 @@ class TextformatterPulse extends Textformatter implements ConfigurableModule {
         if(self::$assetsInjected) return '';
         self::$assetsInjected = true;
         $url = $this->wire('sanitizer')->entities1($this->wire('config')->urls->siteModules . 'Pulse/assets/');
-        return "<link rel=\"stylesheet\" href=\"{$url}pulse.css\">"
-            . "<script src=\"{$url}pulse.js\" defer></script>";
+        $path = $this->wire('config')->paths->siteModules . 'Pulse/assets/';
+        $cssVersion = is_file($path . 'pulse.css') ? filemtime($path . 'pulse.css') : 0;
+        $jsVersion = is_file($path . 'pulse.js') ? filemtime($path . 'pulse.js') : 0;
+        return "<link rel=\"stylesheet\" href=\"{$url}pulse.css?v={$cssVersion}\">"
+            . "<script src=\"{$url}pulse.js?v={$jsVersion}\" defer></script>";
     }
 
     public static function getModuleConfigInputfields(array $data) {

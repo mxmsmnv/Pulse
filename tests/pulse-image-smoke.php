@@ -42,6 +42,13 @@ if(!preg_match('/<div class="pulse__hp"[^>]*\shidden(?:\s|>)/', $html)) {
     exit(1);
 }
 
+$formatter = wire('modules')->get('TextformatterPulse');
+$widget = $formatter ? $formatter->render('[[pulse:quiz name="' . $name . '"]]') : '';
+if(!preg_match('~/Pulse/assets/pulse\.js\?v=\d+~', $widget)) {
+    fwrite(STDERR, "Pulse JavaScript asset is missing its cache-busting version.\n");
+    exit(1);
+}
+
 if($expected !== $rendered) {
     fwrite(STDERR, "Question image mismatch: persisted={$expected}, rendered={$rendered}\n");
     exit(1);
