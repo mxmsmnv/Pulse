@@ -113,6 +113,15 @@
 
 .pulse__error { color: #b00020; font-size: .92em; margin-top: 8px; }
 
+/* Prevent timed exam content from flashing before pulse.js builds the lead gate.
+ * The server renders a cache-safe shell in the loading state; only the current
+ * runtime may reveal questions after the participant explicitly starts. */
+.pulse[data-pulse-mode="exam"][data-pulse-state="loading"] .pulse__question,
+.pulse[data-pulse-mode="exam"][data-pulse-state="loading"] .pulse__lead,
+.pulse[data-pulse-mode="exam"][data-pulse-state="loading"] .pulse__submit {
+  display: none;
+}
+
 /* quiz step pagination: JS adds .pulse--paged and toggles .is-active */
 .pulse--paged .pulse__question { display: none; }
 .pulse--paged .pulse__question.is-active { display: block; }
