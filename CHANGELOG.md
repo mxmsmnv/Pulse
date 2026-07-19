@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.2
+
+- Synchronize the builder payload immediately after question, option, or outcome image uploads and removals.
+- Show a clear reminder that the item must be saved after changing an image.
+- Add a reusable CLI smoke test for persisted question images and public rendering.
+
 ## v1.0.1 - Module directory entry point
 
 ### Fixed

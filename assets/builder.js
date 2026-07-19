@@ -433,19 +433,31 @@
   // ---- image control ----
   function imageControl(obj, big) {
     var box = el('span', { class: 'pulse-inline' });
-    function draw() {
+    function draw(pendingMessage) {
       box.innerHTML = '';
       if (obj.image) {
         box.appendChild(el('img', { class: 'pulse-option-thumb', src: (CFG.assetsUrl || '') + encodeURIComponent(obj.image), style: big ? 'width:60px;height:60px;' : '' }));
-        box.appendChild(el('button', { type: 'button', class: 'uk-button uk-button-danger pulse-btn', onclick: function () { obj.image = ''; draw(); } }, ['×']));
+        box.appendChild(el('button', { type: 'button', class: 'uk-button uk-button-danger pulse-btn', onclick: function () {
+          obj.image = '';
+          syncPayload();
+          draw('Image removed. Save the item to apply this change.');
+        } }, ['×']));
+        if (pendingMessage) box.appendChild(el('span', { class: 'pulse-note pulse-image-status', text: pendingMessage }));
         return;
       }
       var f = el('input', { type: 'file', accept: 'image/*', style: 'width:auto;' });
       f.addEventListener('change', function () {
         if (!f.files || !f.files[0]) return;
-        uploadImage(f.files[0], function (res) { if (res && res.file) { obj.image = res.file; draw(); } });
+        uploadImage(f.files[0], function (res) {
+          if (res && res.file) {
+            obj.image = res.file;
+            syncPayload();
+            draw('Image uploaded. Save the item to keep it.');
+          }
+        });
       });
       box.appendChild(f);
+      if (pendingMessage) box.appendChild(el('span', { class: 'pulse-note pulse-image-status', text: pendingMessage }));
     }
     draw();
     return box;
@@ -508,6 +520,11 @@
     return JSON.parse(JSON.stringify(state));
   }
 
+  function syncPayload() {
+    var hidden = document.querySelector('[name="' + (CFG.payloadName || 'pulse_payload') + '"]');
+    if (hidden) hidden.value = JSON.stringify(serialize());
+  }
+
   function validationErrors() {
     var errors = [];
     var name = (state.name || '').trim();
@@ -558,8 +575,7 @@
         alert('Please fix before saving:\n\n' + errors.join('\n'));
         return;
       }
-      var hidden = document.querySelector('[name="' + (CFG.payloadName || 'pulse_payload') + '"]');
-      if (hidden) hidden.value = JSON.stringify(serialize());
+      syncPayload();
     });
   }
 

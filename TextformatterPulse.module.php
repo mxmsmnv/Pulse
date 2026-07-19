@@ -14,7 +14,7 @@ class TextformatterPulse extends Textformatter implements ConfigurableModule {
     public static function getModuleInfo() {
         return [
             'title' => 'Pulse Text Formatter',
-            'version' => '1.0.1',
+            'version' => '1.0.2',
             'summary' => 'Parses [[pulse:poll name="name"]] / [[pulse:quiz name="name"]] tokens into rendered widgets.',
             'author' => 'Maxim Semenov',
             'href'     => 'https://smnv.org',
