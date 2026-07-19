@@ -37,6 +37,11 @@ foreach($item->getQuestions() as $question) {
 $html = $item->render();
 $rendered = substr_count($html, 'class="pulse__question-img"');
 
+if(!preg_match('/<div class="pulse__hp"[^>]*\shidden(?:\s|>)/', $html)) {
+    fwrite(STDERR, "Honeypot must be hidden without depending on Pulse CSS.\n");
+    exit(1);
+}
+
 if($expected !== $rendered) {
     fwrite(STDERR, "Question image mismatch: persisted={$expected}, rendered={$rendered}\n");
     exit(1);

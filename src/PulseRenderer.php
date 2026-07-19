@@ -157,7 +157,7 @@ class PulseRenderer extends Wire {
         }
 
         // honeypot (hidden from a11y)
-        $out .= "<div class=\"pulse__hp\" aria-hidden=\"true\">"
+        $out .= "<div class=\"pulse__hp\" aria-hidden=\"true\" hidden>"
             . "<input type=\"text\" name=\"website\" tabindex=\"-1\" autocomplete=\"off\"></div>";
 
         $out .= "<input type=\"hidden\" name=\"name\" value=\"{$name}\">";
