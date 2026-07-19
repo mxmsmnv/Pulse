@@ -23,6 +23,7 @@ if($bootstrap === '' || !is_file($bootstrap) || !preg_match('/^[a-z][a-z0-9_-]*$
 
 require $bootstrap;
 require_once dirname(__DIR__) . '/src/PulseRenderer.php';
+require_once dirname(__DIR__) . '/ProcessPulse.module.php';
 
 $repository = wire(new Pulses());
 $item = $repository->get($name);
@@ -53,7 +54,7 @@ if(strpos($resultHtml, 'pulse__cert-link') === false) {
     exit(1);
 }
 
-$process = wire('modules')->get('ProcessPulse');
+$process = wire(new ProcessPulse());
 $method = new \ReflectionMethod($process, 'htmlPage');
 $method->setAccessible(true);
 $fallback = $method->invoke($process, '<p>OK</p>', 'quiz');
