@@ -43,7 +43,8 @@ try {
     $idleEvent = wire(new HookEvent());
     $process->handleState($idleEvent);
     $idle = json_decode((string) $idleEvent->return, true);
-    if(!is_array($idle) || !empty($idle['exam_started']) || ($idle['time_remaining'] ?? false) !== null) {
+    if(!is_array($idle) || !empty($idle['exam_started'])
+        || !array_key_exists('time_remaining', $idle) || $idle['time_remaining'] !== null) {
         throw new \RuntimeException('Timed exam started before the lead gate.');
     }
 
