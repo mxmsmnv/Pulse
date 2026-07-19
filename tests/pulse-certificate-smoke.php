@@ -22,6 +22,7 @@ if($bootstrap === '' || !is_file($bootstrap) || !preg_match('/^[a-z][a-z0-9_-]*$
 }
 
 require $bootstrap;
+require_once dirname(__DIR__) . '/src/PulseRenderer.php';
 
 $repository = wire(new Pulses());
 $item = $repository->get($name);
