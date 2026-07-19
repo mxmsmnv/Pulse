@@ -23,7 +23,7 @@ class ProcessPulse extends Process implements ConfigurableModule {
     public static function getModuleInfo() {
         return [
             'title' => 'Pulse Admin',
-            'version' => '1.0.2',
+            'version' => '1.0.3',
             'summary' => 'Polls and quizzes embedded via shortcodes, with live results.',
             'author' => 'Maxim Semenov',
             'href'     => 'https://smnv.org',
@@ -287,7 +287,7 @@ class ProcessPulse extends Process implements ConfigurableModule {
         } else {
             $body = $title . "<p>" . $this->errorText($result['code'] ?? 'error') . "</p>";
         }
-        $event->return = $this->htmlPage($body);
+        $event->return = $this->htmlPage($body, $item->kind);
     }
 
     /**
@@ -358,6 +358,7 @@ class ProcessPulse extends Process implements ConfigurableModule {
             . "</div>";
 
         return "<!doctype html><html><head><meta charset=\"utf-8\">"
+            . "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">"
             . "<title>" . $this->_('Certificate') . " — {$title}</title>"
             . "<link rel=\"stylesheet\" href=\"{$cssUrl}\">"
             . "<style>.pulse-certificate{max-width:640px;margin:6vh auto;padding:48px;border:6px double #2d6cdf;"
@@ -388,13 +389,14 @@ class ProcessPulse extends Process implements ConfigurableModule {
         return isset($map[$code]) ? $map[$code] : $map['error'];
     }
 
-    protected function htmlPage($body) {
+    protected function htmlPage($body, $kind = 'poll') {
         $cssUrl = $this->wire('config')->urls($this) . 'assets/pulse.css';
         $css = $this->wire('sanitizer')->entities1($cssUrl);
+        $kind = $kind === 'quiz' ? 'quiz' : 'poll';
         return "<!doctype html><html><head><meta charset=\"utf-8\">"
             . "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">"
             . "<link rel=\"stylesheet\" href=\"{$css}\"></head><body>"
-            . "<div class=\"pulse pulse--poll\">{$body}</div>"
+            . "<div class=\"pulse pulse--{$kind}\">{$body}</div>"
             . "<p><a href=\"javascript:history.back()\">&larr; " . $this->_('Back') . "</a></p>"
             . "</body></html>";
     }

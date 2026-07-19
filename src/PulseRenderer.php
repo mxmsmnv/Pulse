@@ -392,6 +392,12 @@ class PulseRenderer extends Wire {
             $out .= "</ol>";
         }
 
+        if($passed && !empty($result['certificate_url'])) {
+            $out .= "<p class=\"pulse__cert\"><a class=\"pulse__cert-link\" href=\""
+                . $this->e($result['certificate_url']) . "\" target=\"_blank\" rel=\"noopener\">"
+                . $this->_('Download certificate') . "</a></p>";
+        }
+
         $out .= "</div>";
         return $out;
     }

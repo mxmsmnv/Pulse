@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.3
+
+- Render no-JavaScript quiz responses with the correct `pulse--quiz` wrapper.
+- Include the certificate download link in server-rendered passing results.
+- Add a responsive viewport declaration to standalone certificates.
+- Add a CLI smoke test for certificate tokens and fallback rendering.
+
 ## 1.0.2
 
 - Synchronize the builder payload immediately after question, option, or outcome image uploads and removals.
