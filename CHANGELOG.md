@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.6
+
+- Calculate completed quiz submissions with a portable numeric `CASE`
+  aggregate instead of summing a MySQL boolean expression, enabling the
+  analytics query on PostgreSQL.
+
 ## 1.0.5
 
 - Keep timed exams idle until required participant fields are confirmed with an explicit start action.

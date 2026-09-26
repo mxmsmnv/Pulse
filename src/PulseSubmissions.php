@@ -1084,7 +1084,7 @@ class PulseSubmissions extends Wire {
 
         $row = $database->prepare("SELECT
                 COUNT(*) AS started,
-                SUM(complete=1) AS completed,
+                SUM(CASE WHEN complete=1 THEN 1 ELSE 0 END) AS completed,
                 AVG(CASE WHEN complete=1 AND max_score>0 THEN score/max_score*100 END) AS avg_percent,
                 AVG(CASE WHEN complete=1 THEN passed END) AS pass_rate,
                 AVG(CASE WHEN complete=1 THEN time_spent END) AS avg_time
